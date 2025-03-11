@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRETOPIA Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Geheimnis eingeben -->
+        <div id="secret-input-section">
+            <h2>Gib dein Geheimnis ein:</h2>
+            <div class="input-wrapper secret-animation">
+                <textarea id="secretInput" placeholder="Dein Geheimnis..."></textarea>
+            </div>
+            <button id="submit-secret">Absenden</button>
+        </div>
+
+        <!-- Warte-Bildschirm -->
+         <div id="waiting-section" class="hidden">
+            <h2>Warte, bis alle Spieler ihr Geheimnis abgegeben haben...</h2>
+            <div class="loader"></div>
+        </div>
+
+        <!-- Geheimnis anzeigen -->
+         <div id="secret-display-section" class="hidden">
+            <h2>Welchem Spieler gehört dieses Geheimnis?</h2>
+            <p id="displayedSecret" class="secret-box"></p>
+            <div id="guessButtons" class="guess-grid"></div>
+        </div>
+
+        <!-- Warte-Bildschirm für Abstimmung -->
+         <div id="waiting-votes-section" class="hidden">
+            <h2>Warte auf die Abstimmung der anderen Spieler...</h2>
+            <div class="loader"></div>
+        </div>
+
+        <!-- Abstimmungsergebnisse -->
+        <div id="results-section" class="hidden">
+            <h2>Ergebnisse</h2>
+            <ul id="results-list"></ul>
+        </div>
+
+        <!-- Roast-Eingabe -->
+        <div id="roast-input-section" class="hidden">
+            <h2>Roaste dieses Geheimnis!</h2>
+            <div id="current-secret" class="secret-display"></div>
+            <div id="roast-timer" class="timer">15</div>
+            <textarea id="roast-input" placeholder="Gib deinen Roast ein..."></textarea>
+            <button id="submit-roast">Absenden</button>
+            <div id="roasts-list" class="roast-chat-container"></div>
+        </div>
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
