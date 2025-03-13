@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRETOPIA - Lobby</title>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+    <div id="lobbyContainer" class="container">
+        <h1>LOBBY</h1>
+        <h3>Raumcode: <span id="room-code"></span></h3>
+        <p><strong>Host:</strong> <span id="host-name"></span></p>
+
+        <!-- Spielerliste -->
+        <div id="player-list">
+            <h2>Spieler:</h2>
+            <div id="players"></div>
+        </div>
+
+        <!-- Host-Steuerung -->
+        <div id="host-controls">
+            <button id="start-game" disabled>Spiel starten</button>
+        </div>
+
+        <!-- Wartebildschirm für Spieler -->
+        <div id="player-waiting">
+            <p>Warte, bis der Host das Spiel startet...</p>
+        </div>
+    </div>
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="script-lobby.js"></script>
+</body>
+</html>
