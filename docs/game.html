@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRETOPIA Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Geheimnis eingeben -->
+        <div id="secret-input-section" class="hidden">
+            <h2>Gib dein Geheimnis ein:</h2>
+            <textarea id="secretInput" placeholder="Dein Geheimnis..."></textarea>
+            <button id="submit-secret">Absenden</button>
+            <p id="secret-status" class="status-text">Warte auf andere Spieler...</p>
+        </div>
+
+        <!-- Warte-Bildschirm -->
+        <div id="waiting-section" class="hidden">
+            <h2>Warte, bis alle Spieler bereit sind...</h2>
+            <div class="loader"></div>
+        </div>
+
+        <!-- Geheimnis anzeigen -->
+        <div id="secret-display-section" class="hidden">
+            <h2>Welchem Spieler gehört dieses Geheimnis?</h2>
+            <p id="displayedSecret" class="secret-box"></p>
+            <div id="guessButtons" class="guess-grid"></div>
+            <p id="guess-status" class="status-text">Warte auf andere Spieler...</p>
+        </div>
+
+        <!-- Warte-Bildschirm für Abstimmung -->
+        <div id="waiting-votes-section" class="hidden">
+            <h2>Warte, bis alle abgestimmt haben...</h2>
+            <div class="loader"></div>
+        </div>
+
+        <!-- Abstimmungsergebnisse -->
+        <div id="results-section" class="hidden">
+            <h2>Ergebnisse</h2>
+            <ul id="results-list"></ul>
+            <p id="results-status" class="status-text">Ergebnisse werden angezeigt...</p>
+        </div>
+
+        <!-- Roast-Eingabe -->
+        <div id="roast-input-section" class="hidden">
+            <h2>Roaste dieses Geheimnis!</h2>
+            <div id="current-secret" class="secret-display"></div>
+            <p id="roast-status" class="status-text">Warte auf andere Spieler...</p>
+            <textarea id="roast-input" placeholder="Gib deinen Roast ein..."></textarea>
+            <button id="submit-roast">Absenden</button>
+            <div id="roasts-list" class="roast-chat-container"></div>
+            <!-- Weiter-Button wird dynamisch hinzugefügt -->
+        </div>
+    </div>
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+body {
+    font-family: "Chakra Petch", sans-serif;
+    background: linear-gradient(-45deg, #1A1B41, #2C1E4A, #3A3A7A, #4A4AA4);
+    background-size: 400% 400%;
+    animation: gradient 5.5s ease infinite;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#app {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2vmin;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 2vmin auto;
+    background: rgba(20, 20, 50, 0.8);
+    padding: 2vmin;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    overflow: visible;
+}
+
+.avatar-preview {
+    margin-top: 1.5vmin;
+}
+
+.avatar-selected {
+    width: 10vmin;
+    height: 10vmin;
+    border-radius: 50%;
+    border: 0.3vmin solid #FF0077;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.avatar-selected.confirmed {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.avatar-selection {
+    margin-bottom: 2vmin;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5vmin;
+}
+
+.avatar {
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 50%;
+    border: 0.4vmin solid #FF3B8B;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 59, 139, 0.8);
+}
+
+.arrow-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3vmin;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+    border-radius: 50%;
+    width: 5vmin;
+    height: 5vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    line-height: 1;
+}
+
+.arrow-button:hover {
+    color: #ff4d4d;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+input {
+    width: calc(100% - 4vmin);
+    padding: 1.5vmin;
+    font-size: 2.5vmin;
+    border-radius: 20px;
+    border: 0.3vmin solid #4A4AA4;
+    text-align: center;
+    margin-bottom: 2vmin;
+    background: rgba(20, 20, 50, 0.9);
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: #FF0077;
+    box-shadow: 0 0 10px rgba(255, 0, 119, 0.5);
+    outline: none;
+}
+
+input::placeholder {
+    color: #FF3B8B;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+input:focus::placeholder {
+    opacity: 0;
+}
+
+button {
+    width: 48%;
+    background: linear-gradient(135deg, #FF3B8B, #FF0077);
+    border: none;
+    padding: 1.5vmin;
+    font-size: 2.5vmin;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #FF0077, #D1005A);
+    transform: scale(1.175);
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+}
+
+button:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#players {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vmin;
+    justify-content: center;
+}
+
+.player-entry {
+    display: flex;
+    align-items: center;
+    gap: 1.5vmin;
+    padding: 1.5vmin;
+    border-radius: 10px;
+    margin: 0.5vmin 0;
+}
+
+.player-avatar {
+    width: 12vmin;
+    height: 12vmin;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.player-name {
+    font-size: 2.5vmin;
+    text-align: center;
+}
+
+#host-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vmin;
+}
+
+#start-game {
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+#start-game:not(:disabled) {
+    background: linear-gradient(135deg, #FF0077, #FF3B8B);
+    cursor: pointer;
+}
+
+#start-game:not(:disabled):hover {
+    transform: scale(1.1);
+}
+
+.info-box {
+    width: 90%;
+    max-width: 600px;
+    margin: 2vmin auto;
+    background: rgba(20, 20, 50, 0.8);
+    padding: 2vmin;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.steps-container {
+    position: relative;
+    overflow: hidden;
+    height: 20vmin;
+}
+
+.steps-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+}
+
+.step {
+    flex: 0 0 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.step.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.step.left {
+    transform: translateX(-100%);
+}
+
+.step.right {
+    transform: translateX(100%);
+}
+
+.step-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2vmin;
+    margin-top: 2vmin;
+}
+
+.arrow-button {
+    font-size: 3vmin;
+    padding: 1.5vmin;
+}
+
+.arrow-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.animated-title {
+    font-size: 6vmin;
+    font-weight: bold;
+    color: #00E6E6;
+    text-shadow: 0 0 10px rgba(0, 230, 230, 0.8);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(-10px); }
+    50% { transform: translateY(-20px); }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.8vmin;
+    background: #4A4AA4;
+    border-radius: 5px;
+    margin: 1.5vmin 0;
+}
+
+.progress {
+    width: 14.28%;
+    height: 100%;
+    background: #FF0077;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 3vmin;
+    }
+    
+    .avatar {
+        width: 12vmin;
+        height: 12vmin;
+    }
+    
+    .player-avatar {
+        width: 10vmin;
+        height: 10vmin;
+    }
+    
+    button {
+        width: 100%;
+        margin: 1vmin 0;
+    }
+    
+    .button-container {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .animated-title {
+        font-size: 8vmin;
+    }
+    
+    input {
+        font-size: 3vmin;
+    }
+    
+    .avatar {
+        width: 18vmin;
+        height: 18vmin;
+    }
+    
+    .player-avatar {
+        width: 15vmin;
+        height: 15vmin;
+    }
+    
+    .arrow-button {
+        width: 8vmin;
+        height: 8vmin;
+        font-size: 4vmin;
+    }
+}
