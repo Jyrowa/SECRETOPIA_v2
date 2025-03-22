@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRETOPIA</title>
+    <link rel="stylesheet" href="global.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="animated-title">SECRETOPIA</h1>
+        <h3>The ultimate party game full of secrets and roasts</h3>
+
+        <div class="avatar-selection">
+            <div class="avatar-container">
+                <button id="prev-avatar" class="arrow-button">❮</button>
+                <img src="images/avatar1.png" alt="Avatar 1" class="avatar" id="avatar-display" data-avatar="avatar1">
+                <button id="next-avatar" class="arrow-button">❯</button>
+            </div>
+        </div>
+
+        <input type="text" id="player-name" placeholder="Enter your name">
+
+        <div class="button-container">
+            <button id="create-room">Create Room</button>
+            <button id="join-room">Join Room</button>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h2>How to play?</h2>
+        <div class="steps-container">
+            <div class="step active" id="step1">
+                <h3>1. Enter secret</h3>
+                <p>Each player anonymously enters a personal secret - embarrassing, absurd or surprising. Nobody knows who wrote which secret!</p>
+        </div>
+            <div class="step" id="step2">
+                <h3>2. Guess secrets</h3>
+                <p>The secrets are presented one by one and all players have to guess who they belong to. But the truth remains hidden - only the tips are revealed!</p>
+        </div>
+            <div class="step" id="step3">
+                <h3>3. Show results</h3>
+                <p>The voting results are shown either anonymously or publicly - this is decided randomly and ensures maximum thrill!</p>
+            </div>
+            <div class="step" id="step4">
+                <h3>4. Roast round begins</h3>
+                <p>A randomly selected secret becomes the target of creative roasts. Now it's time for quick-witted sayings and merciless comments!</p>
+            </div>
+            <div class="step" id="step5">
+                <h3>5. Enter roasts</h3>
+                <p>Each player writes their own roast for the secret. But be careful: Whether your roast remains anonymous or appears with your name is unpredictable!</p>
+            </div>
+            <div class="step" id="step6">
+                <h3>6. Rate roasts</h3>
+                <p>All roasts are revealed one by one and rated by players with emojis - laughter, shock, contempt or respect decide which roast hits the most!</p>
+            </div>
+            <div class="step" id="step7">
+                <h3>7. Next secret – next round</h3>
+                <p>A new secret is chosen and play continues until all secrets have been guessed and roasted. Who will survive the fits of laughter? 😆</p>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="step-navigation">
+            <button id="prev-step" class="arrow-button" disabled>❮</button>
+            <button id="next-step" class="arrow-button">❯</button>
+        </div>
+
+        <div class="about-section">
+            <h2>About SECRETOPIA</h2>
+            <p>Secretopia is a thrilling party game where players roast each other in secret rooms! Join with friends, create your avatar, and let the fun begin. Perfect for any gathering!</p>
+        </div>
+    </div>
+    
+    <script type=module src="script-menu.js"></script>
+    <script type=module src="script-steps.js"></script>
+</body>
+</html>
