@@ -155,7 +155,7 @@ function setupAutoTransitions() {
 
         if (currentStatus === "guessing" && voteCount === playerCount) {
             console.log("✅ Alle Spieler haben abgestimmt, zeige Ergebnisse");
-            const showAnonymous = Math.random() < 0.5; // Globaler Status für alle
+            const showAnonymous = Math.random() < 0.5; // Globale Entscheidung für alle
             await set(resultsAnonymousRef, showAnonymous);
             console.log("🔍 Ergebnisse werden anonym angezeigt?", showAnonymous);
             await set(statusRef, "voting");
@@ -368,13 +368,19 @@ async function setupRoastInput() {
 // Roasts anzeigen mit Reaktionen
 function showRoasts() {
     console.log("📜 Roasts werden angezeigt");
+    const roastsList = document.getElementById("roasts-list");
+    let isRendering = false; // Flag um Mehrfachrendering zu verhindern
+
     onValue(roastsRef, async (snapshot) => {
+        if (isRendering) return; // Verhindere paralleles Rendering
+        isRendering = true;
+
+        roastsList.innerHTML = ""; // Leere Liste nur einmal
         const roasts = snapshot.val();
-        const roastsList = document.getElementById("roasts-list");
-        roastsList.innerHTML = "";
 
         if (!roasts) {
             roastsList.innerHTML = "<p>Keine Roasts abgegeben.</p>";
+            isRendering = false;
             return;
         }
 
@@ -405,7 +411,9 @@ function showRoasts() {
             btn.removeEventListener("click", handleReaction);
             btn.addEventListener("click", handleReaction);
         });
-    });
+
+        isRendering = false;
+    }, { onlyOnce: false });
 }
 
 async function handleReaction(event) {
@@ -478,12 +486,98 @@ async function nextRound() {
     }
 }
 
+// Endbildschirm anzeigen
+async function showEndScreen() {
+    console.log("🎉 Endbildschirm wird angezeigt");
+    document.querySelectorAll("#secret-input-section, #waiting-section, #secret-display-section, #waiting-votes-section, #results-section, #roast-input-section")
+        .forEach(section => section.classList.add("hidden"));
+
+    const endScreenSection = document.getElementById("end-screen-section");
+    if (!endScreenSection) {
+        console.error("❌ Fehler: #end-screen-section nicht gefunden. Prüfe game.html!");
+        return;
+    }
+
+    endScreenSection.classList.remove("hidden");
+    const endScreenContent = document.getElementById("end-screen-content");
+    endScreenContent.innerHTML = "<h2>Spiel beendet!</h2><p>Hier ist eine Zusammenfassung:</p>";
+
+    // Spieler und ihre Geheimnisse anzeigen
+    const playersSnapshot = await get(playersRef);
+    const players = playersSnapshot.val() || {};
+    const secretsSnapshot = await get(secretsRef);
+    const secrets = secretsSnapshot.val() || {};
+    const roastsSnapshot = await get(roastsRef);
+    const roasts = roastsSnapshot.val() || {};
+
+    const summaryList = document.createElement("div");
+    summaryList.classList.add("summary-list");
+
+    for (const secretId in secrets) {
+        const secret = secrets[secretId];
+        const player = players[secret.playerId];
+        const playerName = player ? player.name : "Unbekannt";
+        const playerAvatar = player ? player.avatar : "default";
+
+        const secretItem = document.createElement("div");
+        secretItem.classList.add("summary-item");
+        secretItem.innerHTML = `
+            <img class="player-avatar" src="images/${playerAvatar}.png" alt="${playerName}'s Avatar" />
+            <div class="summary-text">
+                <strong>${playerName}'s Geheimnis:</strong> ${secret.text}
+            </div>
+        `;
+        summaryList.appendChild(secretItem);
+    }
+
+    // Besten Roast hervorheben (z. B. mit den meisten 😂 Reaktionen)
+    let bestRoast = null;
+    let maxLaughs = -1;
+    for (const roastId in roasts) {
+        const roast = roasts[roastId];
+        const laughCount = roast.reactions?.["😂"] || 0;
+        if (laughCount > maxLaughs) {
+            maxLaughs = laughCount;
+            bestRoast = roast;
+        }
+    }
+
+    if (bestRoast) {
+        const bestRoastPlayer = players[bestRoast.playerId];
+        const bestRoastName = bestRoast.isAnonymous ? "Anonym" : (bestRoastPlayer ? bestRoastPlayer.name : "Unbekannt");
+        const bestRoastAvatar = bestRoast.isAnonymous ? "default" : (bestRoastPlayer ? bestRoastPlayer.avatar : "default");
+
+        const bestRoastItem = document.createElement("div");
+        bestRoastItem.classList.add("best-roast-item");
+        bestRoastItem.innerHTML = `
+            <h3>Bester Roast des Spiels:</h3>
+            <img class="player-avatar" src="images/${bestRoastAvatar}.png" alt="${bestRoastName}'s Avatar" />
+            <div class="summary-text">
+                <strong>${bestRoastName}:</strong> ${bestRoast.text} <br>
+                <span>(😂 ${maxLaughs} Reaktionen)</span>
+            </div>
+        `;
+        summaryList.appendChild(bestRoastItem);
+    }
+
+    endScreenContent.appendChild(summaryList);
+
+    // Button zum Zurückkehren zur Startseite
+    const backButton = document.createElement("button");
+    backButton.textContent = "Zurück zur Startseite";
+    backButton.classList.add("back-btn");
+    backButton.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+    endScreenContent.appendChild(backButton);
+}
+
 // Status-Handler
 function handleStatusChange(snapshot) {
     const status = snapshot.val();
     console.log("📡 Status geändert zu:", status, "für Spieler:", playerId);
 
-    document.querySelectorAll("#secret-input-section, #waiting-section, #secret-display-section, #waiting-votes-section, #results-section, #roast-input-section")
+    document.querySelectorAll("#secret-input-section, #waiting-section, #secret-display-section, #waiting-votes-section, #results-section, #roast-input-section, #end-screen-section")
         .forEach(section => section.classList.add("hidden"));
 
     switch (status) {
@@ -506,8 +600,7 @@ function handleStatusChange(snapshot) {
             showRoasts();
             break;
         case "finished":
-            alert("Spiel beendet – alle Geheimnisse wurden geroastet!");
-            document.getElementById("results-section")?.classList.remove("hidden");
+            showEndScreen();
             break;
         default:
             console.warn("⚠️ Unbekannter Status:", status, "für", playerId);

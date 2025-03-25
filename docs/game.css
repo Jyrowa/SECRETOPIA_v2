@@ -395,3 +395,49 @@ button:active, .player-vote-button:active {
         transform: translate(var(--x), var(--y)) rotate(450deg) scale(1);
     }
 }
+
+#end-screen-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.summary-list {
+    margin: 20px 0;
+}
+
+.summary-item, .best-roast-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.summary-item .player-avatar, .best-roast-item .player-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.summary-text {
+    text-align: left;
+}
+
+.best-roast-item {
+    border: 2px solid #ffd700; /* Goldrahmen für den besten Roast */
+}
+
+.back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
